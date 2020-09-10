@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for hotel in hotel_list %}
+        <div class="container brd">
+        <div class="row">
+            <div class="col-4">
+                <img src='{{ hotel.poster.url }}' width="250" height="250" >
+            </div>
+            <div class="col-8">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12"><h2><a href="{{ hotel.get_absolut_url }}">{{ hotel.name }}</a></h2></div>
+                        <div class="col-12"><strong>Страна:</strong> {{ hotel.country }}</div>
+                        <div class="col-12"><strong>Тип отеля:</strong> {{ hotel.hotel_type }}</div>
+                        <div class="col-12"><strong>Пляж:</strong> {{ hotel.beach_type }}</div>
+                        <div class="col-12"><strong>Описание:</strong> {{ hotel.description|truncatechars:150 }}</div>
+                        <div class="col-12"><strong>Проживание: от {{ hotel.price }}/руб за ночь</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

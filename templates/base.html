@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tour Agency</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <div class="page-header" align="center">
+                    <h1><a href="/">Tour Agency</a></h1>
+                </div>
+            </div>
+        </div>
+
+        {% include 'menu.html' %}
+
+        <div class="row">
+           <div class="col-3">
+               <center></center>
+           </div>
+           <div class="col-6">
+               <center></center>
+               <div class="container">
+                   <div class="row">
+                   {% block content %}
+
+                   {% endblock content %}
+                   </div>
+               </div>
+           </div>
+           <div class="col-3">
+               <center></center>
+           </div>
+        </div>
+    </body>
+</html>

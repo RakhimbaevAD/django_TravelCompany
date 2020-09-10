@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container brd">
+    <div class="row brd-bottom">
+        <div class="col-12"><h1>Страница входа на сайт</h1></div>
+    </div>
+    <form method="post" action="">
+        {% csrf_token %}
+            <div class="row margin">
+                <div class="col-3">
+                    <strong>Имя пользователя:</strong>
+                </div>
+                <div class="col-9">
+                    <input type="text" autofocus name="username">
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="col-3">
+                    <strong>Пароль</strong>
+                </div>
+                <div class="col-9">
+                   <input type="password" name="password"></p>
+                </div>
+            </div>
+            <div class="row p-3">
+               <input type="submit" value="Войти">
+            </div>
+        <div class="col-12">
+            {% for message in messages %}
+                <p id="messages"> {{ message }} </p>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

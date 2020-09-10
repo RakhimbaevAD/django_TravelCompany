@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="container content">
+        <div class="row">
+            <div class="col-4">
+                <img src='{{ hotel.poster.url }}' width="250" height="250" >
+            </div>
+            <div class="col-8">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12"><h2>{{ hotel.name }}</h2></div>
+                        <div class="col-12"><strong>Страна:</strong> {{ hotel.country }}</div>
+                        <div class="col-12"><strong>Тип отеля:</strong> {{ hotel.hotel_type }}</div>
+                        <div class="col-12"><strong>Пляж:</strong> {{ hotel.beach_type }}</div>
+                        <div class="col-12">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-auto brd"><strong>Проживание: от {{ hotel.price }}/руб за ночь</strong></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-auto brd-background strong-text"><a href="{{ hotel.get_absolut_url_order }}">ЗАБРОНИРОВАТЬ</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row brd-top">
+            <div class="col-4">
+                <h2>Услуги:</h2>
+                <div class="container">
+
+                    <div class="row strong-text">
+                        <div class="col-8">Wi-fi:</div>
+                        <div class="col-4">{{ hotel.services.wifi }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Кондиционер:</div>
+                        <div class="col-4">{{ hotel.services.conditioner }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Бассейн</div>
+                        <div class="col-4">{{ hotel.services.swimming_pool }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Водные горки:</div>
+                        <div class="col-4">{{ hotel.services.waterslides }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">СПА-Центр:</div>
+                        <div class="col-4">{{ hotel.services.spa }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Спортзал:</div>
+                        <div class="col-4">{{ hotel.services.gym }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Дискотека:</div>
+                        <div class="col-4">{{ hotel.services.disco }}</div>
+                    </div>
+                    <div class="row strong-text">
+                        <div class="col-8">Прокат авто:</div>
+                        <div class="col-4">{{ hotel.services.car_rental }}</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-8 brd-left"><h2>Описание:</h2>{{ hotel.description }}</div>
+        </div>
+
+        <div class="row brd-top">
+            <div class="col-12"><h2>Фотографии:</h2></div>
+            {% for photo in hotel.photos %}
+                <div class="col-4 margin"><img src='{{ photo.photo.url }}' width="250" height="250" ></div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="row brd-top">
+            <div class="container">
+                <div class="row py-1">
+                    <div class="col-12">
+                        <h2>Отзывы об отеле:</h2>
+                    </div>
+                </div>
+                {% for review in hotel.reviews %}
+                    <div class="col-12 p-1 brd-review">
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <strong>Имя:</strong> {{ review.name }}
+                            </div>
+                        </div>
+
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <strong>E-mail:</strong> {{ review.email }}
+                            </div>
+                        </div>
+
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <strong>Отзыв:</strong><br> {{ review.text }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row brd-top">
+            <div class="container">
+                <div class="col-12 p-1 brd-menu">
+                    <form action="{% url 'add_review' hotel.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <input type="text" name="name" required placeholder="Имя">
+                            </div>
+                        </div>
+
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <input type="email" name="email" required placeholder="E-mail">
+                            </div>
+                        </div>
+
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <textarea name="text" cols="114" rows="5" required placeholder="Текст комментария"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row py-1">
+                            <div class="col-12">
+                                <input type="submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.body.innerHTML = document.body.innerHTML.replace(/False/g, 'Нет')
+        document.body.innerHTML = document.body.innerHTML.replace(/True/g, 'Да')
+    </script>
+
+
+{% endblock %}
+
+{{ hotel.services.attr_name }}

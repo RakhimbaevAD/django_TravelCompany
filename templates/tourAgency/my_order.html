@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container brd">
+    <div class="row brd-bottom">
+        <div class="col-12"><h1>Мои бронирования</h1></div>
+    </div>
+
+        <div class="row pt-3">
+            <div class="col-12"><h5>Личные данные</h5></div>
+        </div>
+        <div class="container brd-menu">
+            <div class="row margin">
+                <div class="col-3">
+                    <strong>Имя, фамилия:</strong>
+                </div>
+                <div class="col-9">
+                    {{ user.get_full_name }}
+                </div>
+            </div>
+            <div class="row margin pb-3">
+                <div class="col-3">
+                    <strong>E-mail:</strong>
+                </div>
+                <div class="col-9">
+                    <input type="text" size="25" readonly value="{{ user.email }}" name="email" required>
+                </div>
+            </div>
+        </div>
+    <div class="row pt-3">
+        <div class="col-12"><h5>Информация о бронированиях</h5></div>
+    </div>
+    {% for order in orders %}
+        <div class="container mb-3 brd-menu">
+
+        <div class="row margin">
+            <div class="col-3">
+                <strong>Название:</strong>
+            </div>
+            <div class="col-9">
+                {{ order.hotel.name }}
+            </div>
+        </div>
+         <div class="row margin">
+            <div class="col-3">
+                <strong>Тип питания:</strong>
+            </div>
+            <div class="col-9">
+                <input type="text" size="15" value="{{ order.ftype }}" readonly name="hotel_price" id="hotel_price">
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-3">
+                <strong>Количество человек:</strong>
+            </div>
+            <div class="col-9">
+                <input type="number" min="1" max="100" readonly value="{{ order.persons_number }}" name="persons_number" id="id_persons_number">
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-3">
+                <strong>Количество дней:</strong>
+            </div>
+            <div class="col-9">
+                <input type="number" min="1" max="100" readonly value="{{ order.days_number }}" name="days_number" id="id_days_number">
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-3">
+                <strong>Дата вылета: </strong>
+            </div>
+            <div class="col-9">
+                <input type="text" readonly value="{{ order.departure_date }}" name="departure_date">
+            </div>
+        </div>
+        <div class="row margin">
+            <div class="col-3">
+
+            </div>
+            <div class="col-9 p-3">
+                <strong>Стоимость бронирования: </strong>
+                <input type="text" size="10" value="{{ order.price }}руб." readonly name="price" id="price">
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

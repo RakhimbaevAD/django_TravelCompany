@@ -1,0 +1,58 @@
+{% if user.is_authenticated %}
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="container">
+        <div class="col-12">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto brd-menu">
+                        <a href="/">Главное</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href="/">О нас</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href={% url 'my_orders' %}>Мои бронирования</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        Вы вошли как {{ user }}
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href={% url 'logout' %}>Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="container">
+        <div class="col-12">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto brd-menu">
+                        <a href="/">Главное</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href="/">О нас</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href={% url 'login' %}>Войти на сайт</a>
+                    </div>
+                    <div class="col-md-auto brd-menu">
+                        <a href={% url 'register' %}>Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+{% endif %}

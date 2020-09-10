@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container brd">
+            <div class="row brd-bottom">
+                <div class="col-12"><h1>Бронирование отеля</h1></div>
+            </div>
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12"><h4>Информация об отеле</h4></div>
+                </div>
+                <div class="container brd-menu">
+
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Название:</strong>
+                        </div>
+                        <div class="col-9">
+                            {{ hotel.name }}
+                        </div>
+                    </div>
+                     <div class="row margin">
+                        <div class="col-3">
+                            <strong>Cтоимость проживания:</strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" size="13" value="{{ hotel.price }}руб./день" readonly name="hotel_price" id="hotel_price" required>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Питание:</strong>
+                        </div>
+                        <div class="col-9">
+                            <select name="food_type" id="food_type" oninput="calculate()">
+
+                                {% for food in foodInHotel %}
+                                    <option value="{{ food.food_type.id }}">{{ food.food_type }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="text" size="10" value="" readonly name="food_price" id="food_price" required>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Количество человек:</strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" min="1" max="10" name="persons_number" id="id_persons_number" oninput="calculate()" required>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Количество дней:</strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" min="1" max="100" name="days_number" id="id_days_number" oninput="calculate()" required>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Дата вылета: </strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" name="departure_date" required>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+
+                        </div>
+                        <div class="col-9 p-3">
+                            <strong>Стоимость бронирования: </strong>
+                            <input type="text" value="" readonly name="price" id="price" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-3">
+                    <div class="col-12"><h4>Информация о заказчике</h4></div>
+                </div>
+                <div class="container brd-menu">
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>Имя, фамилия:</strong>
+                        </div>
+                        <div class="col-9">
+                            {{ user.get_full_name }}
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div class="col-3">
+                            <strong>E-mail:</strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" size="25" readonly value="{{ user.email }}" name="email" required>
+                        </div>
+                    </div>
+                    <div class="row margin pb-3">
+                        <div class="col-3">
+                            <strong>Номер телефона:</strong>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" name="phone_number" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <input type="submit" value="Забронировать">
+                </div>
+            </form>
+            {% for food in foodInHotel %}
+                <input type="hidden" name="{{ food.food_type.id }}" id="{{ food.food_type.id }}" value="{{ food.price }}">
+            {% endfor %}
+        </div>
+
+    <script>
+    function calculate() {
+        let hotel_price = {{ hotel.price }};
+
+        let fType = document.getElementById('food_type').value;
+        let food_price = document.getElementById(fType).value;
+        let days_number = document.getElementById('id_days_number').value;
+        let persons_number = document.getElementById('id_persons_number').value;
+
+        let price = (Number(hotel_price) + Number(food_price)) * (Number(days_number) * Number(persons_number))
+        document.getElementById('price').value = price + 'руб.';
+        document.getElementById('food_price').value = food_price + 'руб./день';
+
+    }
+    calculate()
+    </script>
+
+{% endblock content %}
